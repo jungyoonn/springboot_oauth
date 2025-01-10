@@ -1,5 +1,6 @@
 package com.eeerrorcode.club.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +33,15 @@ public class SampleController {
   }
   
   @GetMapping("admin")
+  @PreAuthorize("hasRole('ADMIN')")
   public void exAdmin(@AuthenticationPrincipal AuthMemberDto dto) {
     log.info(dto);
     log.info("ex admin");
   }
   
   @GetMapping("api")
+  @PreAuthorize("isAuthenticated()") // 인증된 사용자만 접근 가능
+  // @PreAuthorize("isAnnonymous()") // 익명의 사용자만 접근 가능
   @ResponseBody
   public AuthMemberDto getMethodName(@AuthenticationPrincipal AuthMemberDto dto) {
     return dto;
