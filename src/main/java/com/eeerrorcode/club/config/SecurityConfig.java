@@ -3,6 +3,7 @@ package com.eeerrorcode.club.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,9 @@ import com.eeerrorcode.club.security.handler.LoginSuccessHandler;
 
 
 @Configuration
+// @EnableWebSecurity
+@EnableMethodSecurity
+// @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
   @Autowired
   private UserDetailsService userDetailsService;
@@ -46,4 +50,10 @@ public class SecurityConfig {
   public LoginSuccessHandler loginSuccessHandler() {
     return new LoginSuccessHandler(encoder());
   }
+
+  // 자동으로 등록이 됨!
+  // @Bean
+  // public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+  //   return authenticationConfiguration.getAuthenticationManager();
+  // }
 }
