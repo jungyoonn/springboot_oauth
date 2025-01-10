@@ -46,10 +46,10 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService{
 
     Member member = saveSocialMember(email);
 
-    AuthMemberDto authMemberDTO = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno(), member.getFromSocial()
+    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno(), member.getFromSocial()
       , member.getName(),member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList(), oAuth2User.getAttributes());
 
-    return authMemberDTO;
+    return authMemberDto;
   }
   
   @Transactional
