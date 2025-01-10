@@ -16,21 +16,24 @@ import com.eeerrorcode.club.security.dto.AuthMemberDto;
 @Log4j2
 public class SampleController {
   @GetMapping("all")
-  public void exAll() {
+  public void exAll(@AuthenticationPrincipal AuthMemberDto dto) {
     // 인증, 인가에 필요한 객체들
     // UsernamePasswordAuthenticationToken token;
     // AuthenticationManager manager;
     // AuthenticationProvider provider;
+    log.info(dto);
     log.info("ex all");
   }
   
   @GetMapping("member")
-  public void exMember() {
+  public void exMember(@AuthenticationPrincipal AuthMemberDto dto) {
+    log.info(dto);
     log.info("ex member");
   }
   
   @GetMapping("admin")
-  public void exAdmin() {
+  public void exAdmin(@AuthenticationPrincipal AuthMemberDto dto) {
+    log.info(dto);
     log.info("ex admin");
   }
   
