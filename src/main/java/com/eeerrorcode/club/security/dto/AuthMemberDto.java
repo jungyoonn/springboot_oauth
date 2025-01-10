@@ -20,6 +20,7 @@ public class AuthMemberDto  extends User implements OAuth2User{
   private String name;
   private Boolean fromSocial;
   private Map<String, Object> attr;
+  private String pw;
 
   // security 자체 로그인 호출 생성자
   public AuthMemberDto(String username, String password, Long mno, Boolean fromSocial, String name,Collection<? extends GrantedAuthority> authorities) {
@@ -28,6 +29,7 @@ public class AuthMemberDto  extends User implements OAuth2User{
     this.mno = mno;
     this.email = username;
     this.fromSocial = fromSocial;
+    pw = password;
   }
   
   // OAuth2 호출 생성자
@@ -39,6 +41,7 @@ public class AuthMemberDto  extends User implements OAuth2User{
     this.email = username;
     this.fromSocial = fromSocial;
     this.attr = attr;
+    pw = password;
   }
 
   @Override
