@@ -30,7 +30,7 @@ public class MyMemberUserDetailsService implements UserDetailsService{
       throw new UsernameNotFoundException(username);
     }
 
-    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno(), member.isFromSocial()
+    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno(), member.getFromSocial()
     , member.getName(), member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList());
     return authMemberDto;
   }

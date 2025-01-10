@@ -16,9 +16,9 @@ public class AuthMemberDto  extends User{
   private Long mno;
   private String email;
   private String name;
-  private boolean fromSocial;
+  private Boolean fromSocial;
 
-  public AuthMemberDto(String username, String password, Long mno, boolean fromSocial, String name,Collection<? extends GrantedAuthority> authorities) {
+  public AuthMemberDto(String username, String password, Long mno, Boolean fromSocial, String name,Collection<? extends GrantedAuthority> authorities) {
     super(username, password, authorities);
     this.name = name;
     this.mno = mno;
