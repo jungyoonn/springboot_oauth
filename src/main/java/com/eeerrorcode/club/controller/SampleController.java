@@ -47,4 +47,12 @@ public class SampleController {
     return dto;
   }
   
+  @GetMapping("exMemberOnly")
+  @ResponseBody
+  @PreAuthorize("#dto != null && #dto.username eq \"user100@eeerrorcode.com\"")
+  public String exMemberOnly(@AuthenticationPrincipal AuthMemberDto dto) {
+    log.info(dto.getUsername());
+    return dto.getEmail();
+  }
+  
 }
