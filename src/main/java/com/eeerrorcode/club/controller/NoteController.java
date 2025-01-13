@@ -48,6 +48,12 @@ public class NoteController {
     return ResponseEntity.ok().body("success");
   }
 
+  // 이렇게 해도 되지만 서비스의 modify가 반환 타입이 void 말고 int나 Long이어야 삼항이 성립됨
+  // @PutMapping("{num}") 
+  // public String modify2(@PathVariable Long num, @RequestBody NoteDto dto) {
+  //   return service.modify(dto) ? "success" : "fail"; 
+  // }
+
   @DeleteMapping("{num}")
   public ResponseEntity<?> remove(@PathVariable Long num) {
     service.remove(num);
