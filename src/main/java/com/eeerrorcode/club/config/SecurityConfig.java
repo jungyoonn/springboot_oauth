@@ -68,6 +68,7 @@ public class SecurityConfig{
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
         .requestMatchers("/sample/member").hasRole("USER")
+        .requestMatchers("swagger-ui.html").permitAll()
         // .requestMatchers("/api/**").permitAll()
         // .requestMatchers("/sample/admin").hasRole("ADMIN")
         // .anyRequest().authenticated() // 나머지는 인증 필요
