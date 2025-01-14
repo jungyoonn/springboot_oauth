@@ -28,29 +28,22 @@ public class JWTUtil {
       .compact();
   }
 
-  public String validateAndExtract(String tokenStr) throws Exception {
+  public String validateAndExtract(String tokenStr) {
     String contentValue = null;
 
-    try {
-      // DefaultJws<?> defaultJws = (DefaultJws) Jwts.parser()
-      //   .setSigningKey(secretKey.getBytes("utf-8"))
-      //   .build()
-      //   .parseClaimsJws(tokenStr);
-      
-      Jws<Claims> defaultJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(tokenStr);
-      Claims claims = defaultJws.getPayload();
+    // DefaultJws<?> defaultJws = (DefaultJws) Jwts.parser()
+    //   .setSigningKey(secretKey.getBytes("utf-8"))
+    //   .build()
+    //   .parseClaimsJws(tokenStr);
+    
+    Jws<Claims> defaultJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(tokenStr);
+    Claims claims = defaultJws.getPayload();
 
-      log.info(claims.getSubject());
-      log.info(claims.getIssuedAt()); // 토큰 발급 시각
-      log.info(claims.getExpiration()); // 토큰 종료 시각
+    log.info(claims.getSubject());
+    log.info(claims.getIssuedAt()); // 토큰 발급 시각
+    log.info(claims.getExpiration()); // 토큰 종료 시각
 
-      contentValue = claims.getSubject();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      log.error(e.getMessage());
-      contentValue = null;
-    }
+    contentValue = claims.getSubject();
 
     return contentValue;
   }
