@@ -18,6 +18,8 @@ public interface NoteService {
 
   List<NoteDto> list(String memberEmail);
 
+  List<NoteDto> listAll();
+
   default Note toEntity(NoteDto dto) {
     Note note = Note.builder()
     .num(dto.getNum())

@@ -45,5 +45,10 @@ public class NoteServiceImpl implements NoteService{
     List<Note> list = repository.findByMemberEmail(memberEmail);
     return list.stream().map(note -> toDto(note)).toList();
   }
+
+  @Override
+  public List<NoteDto> listAll() {
+    return repository.findAll().stream().map(this::toDto).toList();
+  }
   
 }
