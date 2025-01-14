@@ -1,5 +1,9 @@
 package com.eeerrorcode.club.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
 @RestController
 @Log4j2
 @RequestMapping("api/v1/notes")
@@ -26,15 +29,30 @@ public class NoteController {
   @Autowired
   private NoteService service;
 
+  @GetMapping("listall")
+  public List<NoteDto> listAll() {
+    return service.listAll();
+  }
+
   @PostMapping
   public ResponseEntity<?> register(@RequestBody NoteDto dto) {
     Long num = service.register(dto);      
     return new ResponseEntity<>(num, HttpStatus.OK);
   }
   
+  @SuppressWarnings("unchecked")
   @GetMapping("{num}")
   public ResponseEntity<?> get(@PathVariable Long num) {
-    return ResponseEntity.ok().body(service.get(num));
+    return service.get(num).map(ResponseEntity::ok)
+      .orElseGet(() -> {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("code", 404);
+        ret.put("message", "NOT_FOUND");
+        ResponseEntity<?> entity = new ResponseEntity<>(ret, HttpStatus.NOT_FOUND);
+        return (ResponseEntity<NoteDto>) entity;
+        // 아래처럼 한 줄로 처리할 수도 있음
+        // return ResponseEntity.notFound().build();
+      });
   }
   
   @GetMapping("list")
