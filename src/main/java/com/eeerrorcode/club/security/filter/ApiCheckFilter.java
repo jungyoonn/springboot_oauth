@@ -2,6 +2,8 @@ package com.eeerrorcode.club.security.filter;
 
 import java.io.IOException;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import net.minidev.json.JSONObject;
+import org.springframework.security.core.Authentication;
 
 @Log4j2
 public class ApiCheckFilter extends OncePerRequestFilter{
@@ -40,6 +43,14 @@ public class ApiCheckFilter extends OncePerRequestFilter{
         boolean checkHeader = checkAuthHeader(request);
 
         if(checkHeader) {
+          // SecurityConfig에서 anyRequest().authenticated()이려면 이렇게 하는 것이 좋다
+          String token = request.getHeader("Authorization").substring(7);
+          String email = jwtUtil.validateAndExtract(token);
+
+          Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, null);
+          SecurityContextHolder.getContext().setAuthentication(authentication);
+          //
+
           filterChain.doFilter(request, response);
           return;
         } else {
