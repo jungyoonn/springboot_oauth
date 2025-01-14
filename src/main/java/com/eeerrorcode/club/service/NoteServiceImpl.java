@@ -1,6 +1,7 @@
 package com.eeerrorcode.club.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,8 @@ public class NoteServiceImpl implements NoteService{
   }
 
   @Override
-  public NoteDto get(Long num) {
-    Note note = repository.findByNum(num);
-    
-    if(note != null) {
-      return toDto(note);
-    }
-
-    return null;
+  public Optional<NoteDto> get(Long num) {
+    return repository.findById(num).map(this::toDto);
   }
 
   @Override

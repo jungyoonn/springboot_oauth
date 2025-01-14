@@ -1,6 +1,7 @@
 package com.eeerrorcode.club.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.eeerrorcode.club.entity.Member;
 import com.eeerrorcode.club.entity.Note;
@@ -9,7 +10,7 @@ import com.eeerrorcode.club.entity.dto.NoteDto;
 public interface NoteService {
   Long register(NoteDto dto);
 
-  NoteDto get(Long num);
+  Optional<NoteDto> get(Long num);
 
   void modify(NoteDto dto);
 
