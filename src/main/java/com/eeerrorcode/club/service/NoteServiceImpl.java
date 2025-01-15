@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eeerrorcode.club.entity.Member;
 import com.eeerrorcode.club.entity.Note;
 import com.eeerrorcode.club.entity.dto.NoteDto;
+import com.eeerrorcode.club.repository.MemberRepository;
 import com.eeerrorcode.club.repository.NoteRepository;
 
 import jakarta.transaction.Transactional;
@@ -17,12 +19,14 @@ import jakarta.transaction.Transactional;
 public class NoteServiceImpl implements NoteService{
   @Autowired
   private NoteRepository repository;
+  @Autowired
+  private MemberRepository memberRepository;
 
   @Override
   public Long register(NoteDto dto) {
-    Note note = toEntity(dto);
-    repository.save(note);
-    return note.getNum();
+    Member member = memberRepository.findByEmail(dto.getMemberEmail());
+    dto.setMno(member.getMno());
+    return repository.save(toEntity(dto)).getNum();
   }
 
   @Override
