@@ -2,6 +2,7 @@ spring:
   profiles:
     include:
     - oauth
+    - s3
   application:
     name: guestbook
   datasource:
