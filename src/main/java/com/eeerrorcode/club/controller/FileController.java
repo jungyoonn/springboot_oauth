@@ -44,7 +44,9 @@ public class FileController {
         String uuid = UUID.randomUUID().toString();
 
         String ext = "";
-        @SuppressWarnings("null")
+        if(origin == null) {
+          continue;
+        }
         int idx = origin.lastIndexOf(".");
         if(idx > 0) {
           ext = origin.substring(idx + 1);
