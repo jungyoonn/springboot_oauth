@@ -1,8 +1,11 @@
 package com.eeerrorcode.club.entity.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.*;
+import lombok.Builder.Default;
 
 @Getter
 @Setter
@@ -18,4 +21,6 @@ public class NoteDto {
   private String memberEmail;
   private LocalDateTime regDate, modDate;
 
+  @Default
+  private List<AttachDto> attachDtos = new ArrayList<>();
 }
