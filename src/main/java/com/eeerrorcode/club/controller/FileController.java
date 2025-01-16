@@ -11,12 +11,9 @@ import com.eeerrorcode.club.service.S3Service;
 import lombok.extern.log4j.Log4j2;
 
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +44,7 @@ public class FileController {
         String uuid = UUID.randomUUID().toString();
 
         String ext = "";
+        @SuppressWarnings("null")
         int idx = origin.lastIndexOf(".");
         if(idx > 0) {
           ext = origin.substring(idx + 1);
