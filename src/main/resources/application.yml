@@ -5,6 +5,10 @@ spring:
     - s3
   application:
     name: guestbook
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mariadb://np.eeerrorcode.com:3306/security
