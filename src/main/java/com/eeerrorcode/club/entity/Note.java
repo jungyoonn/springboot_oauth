@@ -27,5 +27,6 @@ public class Note extends BaseEntity{
 
   @Default
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "note", orphanRemoval = true, cascade = CascadeType.ALL)
+  @Setter
   private List<Attach> attachs = new ArrayList<>();
 }
