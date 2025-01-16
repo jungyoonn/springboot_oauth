@@ -25,4 +25,10 @@ public class NoteServiceTests {
     service.modify(NoteDto.builder().num(1L).title("제목 수정").content("내용 수정").mno(100L).build());
     log.info(service.get(1L));
   }
+
+  @Test
+  public void testRead() {
+    NoteDto dto = service.get(46L).get();
+    dto.getAttachDtos().forEach(log::info);
+  }
 }
