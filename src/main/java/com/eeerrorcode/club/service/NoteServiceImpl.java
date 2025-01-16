@@ -13,9 +13,11 @@ import com.eeerrorcode.club.repository.MemberRepository;
 import com.eeerrorcode.club.repository.NoteRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @Transactional
+@Log4j2
 public class NoteServiceImpl implements NoteService{
   @Autowired
   private NoteRepository repository;
@@ -26,6 +28,8 @@ public class NoteServiceImpl implements NoteService{
   public Long register(NoteDto dto) {
     Member member = memberRepository.findByEmail(dto.getMemberEmail());
     dto.setMno(member.getMno());
+    log.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+    log.info(dto.getAttachDtos());
     return repository.save(toEntity(dto)).getNum();
   }
 
