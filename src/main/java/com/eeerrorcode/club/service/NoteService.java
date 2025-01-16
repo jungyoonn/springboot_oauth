@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.eeerrorcode.club.entity.Attach;
 import com.eeerrorcode.club.entity.Member;
 import com.eeerrorcode.club.entity.Note;
+import com.eeerrorcode.club.entity.dto.AttachDto;
 import com.eeerrorcode.club.entity.dto.NoteDto;
 
 public interface NoteService {
@@ -55,6 +56,19 @@ public interface NoteService {
     .memberEmail(note.getMember().getEmail())
     .regDate(note.getRegDate())
     .modDate(note.getModDate())
+    .attachDtos(note.getAttachs().stream().map(a -> AttachDto.builder()
+      .num(a.getNote().getNum())
+      .size(a.getSize())
+      .url(a.getUrl())
+      .mime(a.getMime())
+      .ext(a.getExt())
+      .fileName(a.getFileName())
+      .path(a.getPath())
+      .image(a.isImage())
+      .origin(a.getOrigin())
+      .uuid(a.getUuid())
+      .build()).toList()
+    )
     .build();
 
     return dto;
