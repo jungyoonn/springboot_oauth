@@ -36,7 +36,8 @@ public class NoteController {
 
   @PostMapping
   public ResponseEntity<?> register(@RequestBody NoteDto dto) {
-    Long num = service.register(dto);      
+    Long num = service.register(dto); 
+    log.info(dto);     
     return new ResponseEntity<>(num, HttpStatus.OK);
   }
   
