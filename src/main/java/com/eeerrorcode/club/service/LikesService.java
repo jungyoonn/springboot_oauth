@@ -6,7 +6,7 @@ import com.eeerrorcode.club.entity.Note;
 import com.eeerrorcode.club.entity.dto.LikesDto;
 
 public interface LikesService {
-  void toggle(LikesDto dto);
+  boolean toggle(LikesDto dto);
 
   boolean get(LikesDto dto);
 

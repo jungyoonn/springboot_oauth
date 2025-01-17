@@ -19,8 +19,15 @@ public class LikesServiceImpl implements LikesService{
   private MemberRepository memberRepository;
 
   @Override
-  public void toggle(LikesDto dto) {
-    if(get(dto)) {
+  public boolean toggle(LikesDto dto) {
+    if(dto.getMno() == null) {
+      Long mno = memberRepository.findByEmail(dto.getEmail()).getMno();
+      dto.setMno(mno);
+    }
+
+    boolean ret = get(dto);
+
+    if(ret) {
       repository.delete(toEntity(dto));
     } else {
       repository.save(toEntity(dto)); 
@@ -28,6 +35,8 @@ public class LikesServiceImpl implements LikesService{
     
     // delete의 반환 타입이 void이므로 save의 반환 타입과 달라서 삼항을 쓸 수 없다
     // get(dto) ? repository.delete(toEntity(dto)) : repository.save(toEntity(dto));
+
+    return ret;
   }
 
   @Override
@@ -36,7 +45,7 @@ public class LikesServiceImpl implements LikesService{
       Long mno = memberRepository.findByEmail(dto.getEmail()).getMno();
       dto.setMno(mno);
     }
-    
+
     // optional.get() 했을 때 null이면 터진다!
     return repository.findById(LikesId.builder()
       .member(dto.getMno())
