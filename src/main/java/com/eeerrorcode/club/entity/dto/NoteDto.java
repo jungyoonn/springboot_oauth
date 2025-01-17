@@ -22,6 +22,7 @@ public class NoteDto {
   private LocalDateTime regDate, modDate;
 
   private long LikesCnt;
+  private long attachCnt;
 
   @Default
   private List<AttachDto> attachDtos = new ArrayList<>();
