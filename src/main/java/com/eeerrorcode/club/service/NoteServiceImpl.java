@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import com.eeerrorcode.club.entity.Likes;
 import com.eeerrorcode.club.entity.Member;
 import com.eeerrorcode.club.entity.Note;
 import com.eeerrorcode.club.entity.dto.NoteDto;
+import com.eeerrorcode.club.repository.LikesRepository;
 import com.eeerrorcode.club.repository.MemberRepository;
 import com.eeerrorcode.club.repository.NoteRepository;
 
@@ -23,6 +26,8 @@ public class NoteServiceImpl implements NoteService{
   private NoteRepository repository;
   @Autowired
   private MemberRepository memberRepository;
+  @Autowired
+  private LikesRepository likesRepository;
 
   @Override
   public Long register(NoteDto dto) {
@@ -35,7 +40,9 @@ public class NoteServiceImpl implements NoteService{
 
   @Override
   public Optional<NoteDto> get(Long num) {
-    return repository.findById(num).map(this::toDto);
+    Long count = likesRepository.count(Example.of(Likes.builder().note(Note.builder().num(num).build()).build()));
+    log.info(count);
+    return repository.findById(num).map(this::toDto).map(d -> { d.setLikesCnt(count); return d; });
   }
 
   @Override
