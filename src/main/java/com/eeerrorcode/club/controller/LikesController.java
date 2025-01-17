@@ -21,10 +21,11 @@ public class LikesController {
   private LikesService service;
 
   @GetMapping
-  public boolean get(@RequestBody LikesDto dto) {
+  public boolean get(LikesDto dto) {
+    log.info(dto);
     return service.get(dto);
   }
-
+  
   @PostMapping
   public void postMethodName(@RequestBody LikesDto dto) {
     service.toggle(dto);
