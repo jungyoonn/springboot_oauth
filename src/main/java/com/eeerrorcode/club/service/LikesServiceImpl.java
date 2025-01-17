@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.eeerrorcode.club.entity.composite.LikesId;
 import com.eeerrorcode.club.entity.dto.LikesDto;
 import com.eeerrorcode.club.repository.LikesRepository;
+import com.eeerrorcode.club.repository.MemberRepository;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -14,6 +15,8 @@ import lombok.extern.log4j.Log4j2;
 public class LikesServiceImpl implements LikesService{
   @Autowired
   private LikesRepository repository;
+  @Autowired
+  private MemberRepository memberRepository;
 
   @Override
   public void toggle(LikesDto dto) {
@@ -29,6 +32,11 @@ public class LikesServiceImpl implements LikesService{
 
   @Override
   public boolean get(LikesDto dto) {
+    if(dto.getMno() == null) {
+      Long mno = memberRepository.findByEmail(dto.getEmail()).getMno();
+      dto.setMno(mno);
+    }
+    
     // optional.get() 했을 때 null이면 터진다!
     return repository.findById(LikesId.builder()
       .member(dto.getMno())
