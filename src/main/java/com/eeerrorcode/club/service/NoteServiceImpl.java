@@ -57,13 +57,25 @@ public class NoteServiceImpl implements NoteService{
 
   @Override
   public List<NoteDto> list(String memberEmail) {
-    List<Note> list = repository.findByMemberEmail(memberEmail);
-    return list.stream().map(note -> toDto(note)).toList();
+    // List<Note> list = repository.findByMemberEmail(memberEmail);
+    // return list.stream().map(note -> toDto(note)).toList();
+    return repository.findNotesBy(memberEmail).stream().map(o -> {
+      NoteDto dto = toDto((Note)o[0]);
+      dto.setLikesCnt((Long)o[1]);
+      dto.setAttachCnt((Long)o[2]);
+      return dto;
+    }).toList();
   }
 
   @Override
   public List<NoteDto> listAll() {
-    return repository.findAll().stream().map(this::toDto).toList();
+    // return repository.findAll().stream().map(this::toDto).toList();
+    return repository.findNotes().stream().map(o->{
+      NoteDto dto = toDto((Note)o[0]);
+      dto.setLikesCnt((Long)o[1]);
+      dto.setAttachCnt((Long)o[2]);
+      return dto;
+    }).toList();
   }
   
 }
